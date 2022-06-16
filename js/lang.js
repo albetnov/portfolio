@@ -1,10 +1,10 @@
 const checkForStorage = () => {
   if (typeof Storage === "undefined") {
     alert(
-      "localStorage not available. Saving language setting is not possible"
+      "localStorage not available. Configuring language may not work properly."
     );
     alert(
-      "localStorage tidak tersedia. Menyimpan konfigurasi bahasa tidak bisa dilakukan"
+      "localStorage tidak tersedia. Konfigurasi bahasa mungkin tidak bekerja dengan baik."
     );
     return false;
   }
@@ -166,7 +166,7 @@ const setResumeNavigation = () => {
 
   const content = {
     en: ["Education", "Experience", "Skills"],
-    id: ["Pendidikan", "Pengalaman", "Kemampuan"],
+    id: ["Pendidikan", "Pengalaman", "Keahlian"],
   };
 
   for (let i = 0; i < getUl.children.length; i++) {
@@ -230,8 +230,13 @@ const setSkills = () => {
   const content = {
     en: ["Years Experience", "Year Experiece", "Months Experience"],
     id: ["Tahun Pengalaman", "Tahun Pengalaman", "Bulan Pengalaman"],
+    heading: {
+      en: "Skills",
+      id: "Keahlian",
+    },
   };
 
+  getSkills.children[0].innerText = content.heading[getLang()];
   const years = ["3", "3", "2", "2", "2", "1", "3+"];
 
   for (let i = 0; i < spanLists.length; i++) {
@@ -313,6 +318,112 @@ const setProjects = () => {
   visitMore.innerHTML = content.visitMore[getLang()];
 };
 
+const setHireMe = () => {
+  const getHireMe = document.querySelector("#hire-me-section");
+  const h2Lists = getHireMe.getElementsByTagName("h2")[0];
+  const pLists = getHireMe.getElementsByTagName("p");
+
+  const content = {
+    heading: {
+      en: `I'm <span>Available</span> For Hire!`,
+      id: "Saya <span>Tersedia</span> Untuk Kerja!",
+    },
+    paragraph: {
+      en: "Reach me out!",
+      id: "Hubungi Saya!",
+    },
+    button: {
+      en: "Hire Me",
+      id: "Pekerjakan Saya",
+    },
+  };
+
+  h2Lists.innerHTML = content.heading[getLang()];
+  pLists[0].innerHTML = content.paragraph[getLang()];
+  pLists[1].children[0].innerText = content.button[getLang()];
+};
+
+const setContact = () => {
+  const getContact = document.querySelector("#contact-section");
+
+  const content = {
+    heading: {
+      en: ["Contact", "Contact Me", "Reach out to me!"],
+      id: ["Kontak", "Hubungi Saya", "Hubungi Saya."],
+    },
+    paragraph: [
+      "Batam, Indonesia",
+      `<a href="tel://6282283448874">+62 822 8344 8874</a>`,
+      `<a href="mailto:albetnovendo99@gmail.com">albetnovendo99@gmail.com</a>`,
+      `<a href="#">https://albetnov.github.io/portfolio</a>`,
+    ],
+    cardHeader: {
+      en: ["Address", "Contact Number", "Email Address", "Website"],
+      id: ["Alamat", "Nomor Telepon", "Alamat Email", "Situs Web"],
+    },
+  };
+
+  getContact.querySelector("h1.big.big-2").innerText =
+    content.heading[getLang()][0];
+  getContact.querySelector("h2.mb-4").innerText = content.heading[getLang()][1];
+  getContact.getElementsByTagName("p")[0].innerText =
+    content.heading[getLang()][2];
+
+  const h3Lists = document.querySelectorAll("h3.mb-4");
+  for (let i = 0; i < h3Lists.length; i++) {
+    h3Lists[i].nextElementSibling.innerHTML = content.paragraph[i];
+    h3Lists[i].innerText = content.cardHeader[getLang()][i];
+  }
+};
+
+const setFooter = () => {
+  const getFooter = document.getElementsByTagName("footer")[0];
+  const h2Lists = getFooter.querySelectorAll("h2.ftco-heading-2");
+
+  const content = {
+    about: {
+      en: ["About", "Connect With Me"],
+      id: ["Tentang Saya", "Terhubung dengan saya!"],
+    },
+    links: {
+      en: [
+        "Home",
+        "About",
+        "Resume",
+        "Projects",
+        "Contact",
+        "Ganti ke Bahasa Indonesia",
+      ],
+      id: [
+        "Halaman Utama",
+        "Tentang Saya",
+        "Resume",
+        "Projek Saya",
+        "Hubungi Saya",
+        "Switch to English Language",
+      ],
+    },
+    question: {
+      id: "Ada Pertanyaan?",
+      en: "Have a Questions?",
+    },
+  };
+
+  h2Lists[0].nextElementSibling.innerText = content.about[getLang()][1];
+  h2Lists[0].innerText = content.about[getLang()][0];
+
+  const links = h2Lists[1].nextElementSibling;
+  const span = `<span class="icon-long-arrow-right mr-2"></span>`;
+  for (let i = 0; i < links.children.length; i++) {
+    links.children[i].children[0].innerHTML =
+      span + content.links[getLang()][i];
+  }
+
+  const langModifier = document.querySelector("#switch-lang");
+  langModifier.addEventListener("click", setLang);
+
+  h2Lists[3].innerText = content.question[getLang()];
+};
 const applyLang = () => {
   const lang = getLang();
   document.body.setAttribute("lang", lang);
@@ -327,6 +438,9 @@ const applyLang = () => {
   setExperience();
   setSkills();
   setProjects();
+  setHireMe();
+  setContact();
+  setFooter();
 };
 
 document.addEventListener("DOMContentLoaded", () =>
