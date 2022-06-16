@@ -158,9 +158,159 @@ const setAbout = () => {
 
   aboutDetails.children[1].children[0].innerText =
     content[getLang()].aboutButton;
-  //   for (let i = 0; i < aboutProject.children.length; i++) {
-  //     console.log(aboutProject.children[i].innerHTML);
-  //   }
+};
+
+const setResumeNavigation = () => {
+  const navigation = document.querySelector("#navi");
+  const getUl = navigation.children[0];
+
+  const content = {
+    en: ["Education", "Experience", "Skills"],
+    id: ["Pendidikan", "Pengalaman", "Kemampuan"],
+  };
+
+  for (let i = 0; i < getUl.children.length; i++) {
+    getUl.children[i].children[0].innerHTML = content[getLang()][i];
+  }
+};
+
+const setEducation = () => {
+  const getEducation = document.querySelector("#page-1");
+  const h2Lists = getEducation.getElementsByTagName("h2");
+
+  const content = {
+    en: [
+      "Education",
+      "Computer Engineering | High School",
+      "Junior High School",
+      "Elementary School",
+    ],
+    id: [
+      "Pendidikan",
+      "Rekayasa Perangkat Lunak | Sekolah Kejuruan",
+      "Sekolah Menegah Pertama",
+      "Sekolah Dasar",
+    ],
+  };
+
+  for (let i = 0; i < h2Lists.length; i++) {
+    h2Lists[i].innerText = content[getLang()][i];
+  }
+};
+
+const setExperience = () => {
+  const getExperience = document.querySelector("#page-2");
+  const h2Lists = getExperience.getElementsByTagName("h2");
+
+  const content = {
+    en: [
+      "Experience",
+      "Intern",
+      "I worked as Web Developer Intern in PT Pundi Mas Berjaya for 6 Months.",
+    ],
+    id: [
+      "Pengalaman",
+      "Magang",
+      "Saya magang sebagai Web Developer di PT Pundi Mas Berjaya selama 6 Bulan.",
+    ],
+  };
+
+  for (let i = 0; i < h2Lists.length; i++) {
+    h2Lists[i].innerText = content[getLang()][i];
+  }
+
+  const paragraph = getExperience.getElementsByTagName("p");
+  paragraph.innerText = content[getLang()][2];
+};
+
+const setSkills = () => {
+  const getSkills = document.querySelector("#page-3");
+  const spanLists = getSkills.getElementsByTagName("span");
+
+  const content = {
+    en: ["Years Experience", "Year Experiece", "Months Experience"],
+    id: ["Tahun Pengalaman", "Tahun Pengalaman", "Bulan Pengalaman"],
+  };
+
+  const years = ["3", "3", "2", "2", "2", "1", "3+"];
+
+  for (let i = 0; i < spanLists.length; i++) {
+    let addon = content[getLang()][0];
+    if (years[i] === "1") {
+      addon = content[getLang()][1];
+    } else if (years[i] === "3+") {
+      addon = content[getLang()][2];
+    }
+    spanLists[i].innerText = years[i] + " " + addon;
+  }
+};
+
+const setProjects = () => {
+  const getProjects = document.querySelector("#projects-section");
+  const linkLists = getProjects.getElementsByTagName("a");
+  const spanLists = getProjects.getElementsByTagName("span");
+
+  const content = {
+    projects: {
+      en: [
+        "Alumni Tracking/Information System",
+        "Restaurant Cashier Management System",
+        "Landing Page Builder",
+        "Phone Number Sharing Platform",
+        "Simple Laundry Management",
+      ],
+      id: [
+        "Sistem Informasi Alumni",
+        "Sistem Manajemen Kasir Restaurant",
+        "Pembuat Halaman Utama",
+        "Platform Berbagi Nomor Telepon",
+        "Manajemen Laundri Sederhana",
+      ],
+    },
+    links: {
+      title: ["Alumnifo", "StarBug", "WebProfile", "Telefon", "Laundeni"],
+      link: [
+        "https://github.com/albetnov/alumnifo",
+        "https://github.com/albetnov/starbug",
+        "https://github.com/albetnov/webprofile",
+        "https://github.com/albetnov/telefon",
+        "https://github.com/albetnov/laundeni",
+      ],
+    },
+    visitMore: {
+      en: `And Many More at my
+      <a href="https://github.com/albetnov">Github </a>Page`,
+      id: `Dan banyak lagi di
+      <a href="https://github.com/albetnov">Github </a>Saya.`,
+    },
+    heading: {
+      en: [
+        "Projects",
+        "Our Projects",
+        "Some Projects Highlight i has done before",
+      ],
+      id: [
+        "Projek",
+        "Projek Kami",
+        "Beberapa projek yang sudah saya kerjakan sebelumnya.",
+      ],
+    },
+  };
+
+  getProjects.getElementsByTagName("h1")[0].innerText =
+    content.heading[getLang()][0];
+  const h2 = getProjects.getElementsByTagName("h2");
+  h2[0].innerText = content.heading[getLang()][1];
+  h2[0].nextElementSibling.innerText = content.heading[getLang()][2];
+
+  for (let i = 0; i < spanLists.length; i++) {
+    spanLists[i].innerText = content.projects[getLang()][i];
+    linkLists[i].innerText = content.links.title[i];
+    linkLists[i].href = content.links.link[i];
+  }
+
+  const visitMore = getProjects.querySelector("p.text-center");
+  visitMore.innerHTML = content.visitMore[getLang()];
 };
 
 const applyLang = () => {
@@ -172,6 +322,11 @@ const applyLang = () => {
   setNavbars(getNavbars);
   setHero();
   setAbout();
+  setResumeNavigation();
+  setEducation();
+  setExperience();
+  setSkills();
+  setProjects();
 };
 
 document.addEventListener("DOMContentLoaded", () =>
